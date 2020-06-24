@@ -81,6 +81,9 @@ public class ZookeeperMetaDataCollector implements MetaDataCollector {
     private String doGetMetadata(MetadataIdentifier identifier) {
         //TODO error handing
         try {
+            // TODO 这里由于dubbo-2.7.3和dubbo-2.7.0的getNodePath方法实现不一样，所以使用dubbo-2.7.0注册的服务
+            //  在dubbo-admin上是查询不了服务元数据，也无法使用接口测试功能的
+            //  [Dubbo 版本发布及新特性速览](http://dubbo.apache.org/zh-cn/docs/user/new-features-in-a-glance.html)
             String path = getNodePath(identifier);
             if (client.checkExists().forPath(path) == null) {
                 return null;
